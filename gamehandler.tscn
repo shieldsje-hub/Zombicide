@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-[gd_scene format=3 uid="uid://6k63xiy11hj7"]
-=======
 [gd_scene format=3 uid="uid://b77ejps0m3jhe"]
->>>>>>> 041e769e2dcdcccd6daaa913f13527fa7ff73345
 
 [node name="Gamehandler" type="Node" unique_id=1845735320]

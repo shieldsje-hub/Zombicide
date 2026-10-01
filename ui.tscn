@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene format=3 uid="uid://d2cthhywr5x58"]
-=======
 [gd_scene format=3 uid="uid://b1mogcchcbenf"]
->>>>>>> 041e769e2dcdcccd6daaa913f13527fa7ff73345
 
 [node name="UI" type="Control" unique_id=533807590]
 layout_mode = 3
