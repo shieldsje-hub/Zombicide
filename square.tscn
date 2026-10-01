@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ou5xv1tffhff"]
+
+[ext_resource type="Script" uid="uid://534a3d4y7h71" path="res://square.gd" id="1_2eeqm"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8lkhj"]
+
+[node name="square" type="Node2D"]
+script = ExtResource("1_2eeqm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_8lkhj")
+offset = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(0, 0, 1, 1)
