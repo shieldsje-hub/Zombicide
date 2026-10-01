@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 [gd_scene format=3 uid="uid://dat7fwnptu2g4"]
+=======
+[gd_scene format=3 uid="uid://b6p5r01e5cgun"]
+>>>>>>> 041e769e2dcdcccd6daaa913f13527fa7ff73345
 
 [node name="Mainmenu" type="Node2D" unique_id=680547722]
