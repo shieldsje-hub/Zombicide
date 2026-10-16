@@ -14,8 +14,9 @@ var roomsgen = int(0)
 var tiley = float(0.0)
 var tilex = float(0.0)
 var location = Vector2(0.0, 0.0)
-var doorpos = 5
+var doorpos = (0)
 var doornum = 0
+var walls = [] 
 # 0 is 2x2, 1 is 4x2, 2 is 4x4, 3 is 4x2
 @onready var debug_camera: Camera2D = $"Debug camera"
 # Called when the node enters the scene tree for the first time.
@@ -73,32 +74,31 @@ func generate(): #this code generates the floor sprites, as well as the outer wa
 				wallstage = 1
 				wall_generate()
 func room_generate():
+
+# Example of adding walls instead of generating immediately
+	walls.append({ "x": tilex, "y": tiley, "stage": 1 })
+	walls.append({ "x": tilex, "y": tiley, "stage": 1 })
+	walls.append({ "x": tilex, "y": tiley, "stage": 2 })
+	walls.append({ "x": tilex, "y": tiley, "stage": 2 })
 	for I in range(roomnumber):
 		roomtype = 0#randi_range(0,3) #change this to generate rooms based on set conditions
 		if roomtype == 0: #2x2
-			doornum = randi_range(0, 1)
-			for doorpos in doornum:
-				doorpos = randi_range(0,3)
-			if roomsgen == 0:
-				tiley = 0.0
+			if I == 0:
 				tilex = 0.0
-				wallstage = 1
-			else:
-				var positions = maparray.filter(
-				func(pos):
-					return pos.x <= (gridsize - 3) * tilesize and pos.y <= (gridsize - 3) * tilesize)
-				location = positions.pick_random()
-				print(location)
-				roomsgen += 1
-		elif roomtype == 1: #4x2
-			if roomsgen == 0:
-				pass
-		elif roomtype == 2: #4x4
-			if roomsgen == 0:
-				pass
-		elif roomtype == 3: #2x4
-			if roomsgen == 0:
-				pass
+				tiley = 0.0
+			doornum = randi_range(1, 2)
+			walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 1 })
+			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 1 })
+			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 2 })
+			walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 2 })
+				
+			
+			var positions = maparray.filter(
+			func(pos):
+				return pos.x <= (gridsize - 3) * tilesize and pos.y <= (gridsize - 3) * tilesize)
+			location = positions.pick_random()
+			print(location)
+			roomsgen += 1
 func wall_generate(): #as of now this generates walls around the grid based on conditions set by generate()
 	var newwall = wall.instantiate()
 	if wallstage == 0:
