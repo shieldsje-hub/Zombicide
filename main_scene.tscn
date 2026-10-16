@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cmsd0alnksen2"]
+
+[ext_resource type="PackedScene" uid="uid://u4j54sldclkc" path="res://player.tscn" id="1_2c62f"]
+[ext_resource type="PackedScene" uid="uid://d3knceyl1lsi3" path="res://map_generator.tscn" id="2_gyfs4"]
+
+[node name="Main scene" type="Node2D" unique_id=1696642652]
+
+[node name="Player1" parent="." unique_id=30672815 instance=ExtResource("1_2c62f")]
+
+[node name="Map Generator" parent="." unique_id=79038839 instance=ExtResource("2_gyfs4")]
