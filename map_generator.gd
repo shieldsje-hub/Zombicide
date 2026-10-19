@@ -8,13 +8,13 @@ var go = bool(false)
 var time = 0.0
 var tilesize = 10.0
 var wallsize = 2.0
-var roomnumber = int(1)
-var roomtype = int(0)
+var roomnumber = int(10)
+var roomtype = int(1)
 var roomsgen = int(0)
 var tiley = float(0.0)
 var tilex = float(0.0)
 var location = Vector2(0.0, 0.0)
-var doorpos = (0)
+var doorpos = (5)
 var doornum = 0
 var walls = [] 
 # 0 is 2x2, 1 is 4x2, 2 is 4x4, 3 is 4x2
@@ -74,29 +74,60 @@ func generate(): #this code generates the floor sprites, as well as the outer wa
 				wallstage = 1
 				wall_generate()
 func room_generate():
-
-# Example of adding walls instead of generating immediately
-	walls.append({ "x": tilex, "y": tiley, "stage": 1 })
-	walls.append({ "x": tilex, "y": tiley, "stage": 1 })
-	walls.append({ "x": tilex, "y": tiley, "stage": 2 })
-	walls.append({ "x": tilex, "y": tiley, "stage": 2 })
 	for I in range(roomnumber):
 		roomtype = 0#randi_range(0,3) #change this to generate rooms based on set conditions
 		if roomtype == 0: #2x2
 			if I == 0:
 				tilex = 0.0
 				tiley = 0.0
-			doornum = randi_range(1, 2)
+			else:
+				var positions = maparray.filter(
+				func(pos):
+					return pos.x <= (gridsize - 3) * tilesize and pos.y <= (gridsize - 3) * tilesize)
+				location = positions.pick_random()
+				tilex = location.x
+				tiley = location.y
+			if not tiley == 0.0:
+				walls.append({ "x": tilex, "y": tiley, "stage": 0 })
+				walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 0 })
+			if not tilex == 0.0:
+				walls.append({ "x": tilex, "y": tiley, "stage": 3 })
+				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 3 })
 			walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 1 })
 			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 1 })
 			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 2 })
 			walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 2 })
+			for i in walls:
+				wallstage = i.stage
+				tilex = i.x
+				tiley = i.y
+				wall_generate()
+		elif roomtype == 1: #3x3
+			if I == 0:
+				tilex = 0.0
+				tiley = 0.0
+			else:
+				var positions = maparray.filter(
+				func(pos):
+					return pos.x <= (gridsize - 4) * tilesize and pos.y <= (gridsize - 4) * tilesize)
+				location = positions.pick_random()
+				tilex = location.x
+				tiley = location.y
+			walls.append({ "x": tilex + tilesize * 2, "y": tiley, "stage": 1 })
+			walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize, "stage": 1 })
+			walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 1 })
+			walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 2 })
+			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize * 2, "stage": 2 })
+			walls.append({ "x": tilex, "y": tiley + tilesize * 2, "stage": 2 })
+			
+			for i in walls:
+				wallstage = i.stage
+				tilex = i.x
+				tiley = i.y
+				wall_generate()
 				
 			
-			var positions = maparray.filter(
-			func(pos):
-				return pos.x <= (gridsize - 3) * tilesize and pos.y <= (gridsize - 3) * tilesize)
-			location = positions.pick_random()
+			
 			print(location)
 			roomsgen += 1
 func wall_generate(): #as of now this generates walls around the grid based on conditions set by generate()
