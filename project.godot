@@ -18,6 +18,10 @@ config/name="Zombicide"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameHandler="*uid://butafkdgonipj"
+
 [display]
 
 window/stretch/mode="canvas_items"

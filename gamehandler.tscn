@@ -1,3 +1,6 @@
-[gd_scene load_steps=0 format=3 uid="uid://b77ejps0m3jhe"]
+[gd_scene format=3 uid="uid://b77ejps0m3jhe"]
+
+[ext_resource type="Script" uid="uid://butafkdgonipj" path="res://gamehandler.gd" id="1_w04hp"]
 
 [node name="Gamehandler" type="Node" unique_id=1845735320]
+script = ExtResource("1_w04hp")

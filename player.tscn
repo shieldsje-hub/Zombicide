@@ -1,17 +1,25 @@
 [gd_scene format=3 uid="uid://u4j54sldclkc"]
 
 [ext_resource type="Script" uid="uid://yu6r0r6pxsiw" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Shader" uid="uid://byqbtc3r7pvr3" path="res://player.gdshader" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://b2ib2hbgkf02u" path="res://icon.svg" id="2_onrkg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sh265"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2c62f"]
+shader = ExtResource("2_i3pqv")
+shader_parameter/glow_color = Color(1, 0.9, 0, 1)
+shader_parameter/glow_size = 3.0
 
 [node name="Player1" type="Node2D" unique_id=30672815]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=357527017]
 script = ExtResource("1_onrkg")
+tile_size = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=559388316]
 shape = SubResource("CircleShape2D_sh265")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1637088121]
+material = SubResource("ShaderMaterial_2c62f")
 texture = ExtResource("2_onrkg")

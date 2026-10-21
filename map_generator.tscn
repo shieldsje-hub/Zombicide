@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://5sgmlyoa6s1a"]
+[gd_scene format=3 uid="uid://5sgmlyoa6s1a"]
 
 [ext_resource type="Script" uid="uid://ubkefacww4nr" path="res://map_generator.gd" id="1_0r6lh"]
 
-[node name="Map Generator" type="Node2D"]
+[node name="Map Generator" type="Node2D" unique_id=1853307493]
 script = ExtResource("1_0r6lh")
 
-[node name="Debug camera" type="Camera2D" parent="."]
+[node name="Debug camera" type="Camera2D" parent="." unique_id=1183916223]
 position = Vector2(14, 8)
 zoom = Vector2(30, 30)
