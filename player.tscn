@@ -14,6 +14,7 @@ shader_parameter/glow_size = 3.0
 [node name="Player1" type="Node2D" unique_id=30672815]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=357527017]
+collision_layer = 2
 script = ExtResource("1_onrkg")
 tile_size = 100
 

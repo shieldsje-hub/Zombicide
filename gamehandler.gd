@@ -170,7 +170,6 @@ func end_player_turn(player: Node) -> void:
 	if not is_player_turn(player):
 		return
 
-	# Do not end a turn while its player is moving.
 	if player.get("moving") == true:
 		return
 
@@ -184,7 +183,6 @@ func end_player_turn(player: Node) -> void:
 	update_turn_ui()
 	phase_changed.emit(current_phase)
 
-	# Allow the current input event to finish.
 	await get_tree().process_frame
 
 	if not is_inside_tree():
@@ -194,7 +192,6 @@ func end_player_turn(player: Node) -> void:
 		changing_turn = false
 		return
 
-	# Find the outgoing player in case the player list changed.
 	var old_index: int = players.find(player)
 
 	if old_index >= 0:
@@ -294,8 +291,6 @@ func create_turn_ui() -> void:
 
 	end_turn_button = Button.new()
 	end_turn_button.text = "End Turn"
-
-	# Prevent Enter from activating the button.
 	end_turn_button.focus_mode = Control.FOCUS_NONE
 
 	end_turn_button.pressed.connect(
@@ -349,7 +344,6 @@ func update_turn_ui() -> void:
 
 	turn_order_label.text = text
 
-	# Disable End Turn while the active player is moving.
 	var player_is_moving: bool = (
 		player != null
 		and player.get("moving") == true

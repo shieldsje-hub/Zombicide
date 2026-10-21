@@ -8,13 +8,19 @@
 [node name="Map Generator" parent="." unique_id=79038839 instance=ExtResource("2_gyfs4")]
 
 [node name="Player1" parent="." unique_id=30672815 instance=ExtResource("1_2c62f")]
+position = Vector2(600, 600)
 
 [node name="Player2" parent="." unique_id=1699653678 instance=ExtResource("1_2c62f")]
+position = Vector2(400, 800)
 
 [node name="Player3" parent="." unique_id=1050937923 instance=ExtResource("1_2c62f")]
+position = Vector2(200, 100)
 
 [node name="Player4" parent="." unique_id=429858135 instance=ExtResource("1_2c62f")]
+position = Vector2(100, 0)
 
 [node name="Player5" parent="." unique_id=1385003688 instance=ExtResource("1_2c62f")]
+position = Vector2(100, 400)
 
 [node name="Player6" parent="." unique_id=552287901 instance=ExtResource("1_2c62f")]
+position = Vector2(600, 400)

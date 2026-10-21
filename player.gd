@@ -172,9 +172,22 @@ func add_path_step(direction: Vector2) -> void:
 	if movement_left - (path.size() - 1) <= 0:
 		return
 
+	var start_position: Vector2 = path[-1]
 	var next_position: Vector2 = (
-		path[-1] + direction * tile_size
+		start_position + direction * tile_size
 	)
+
+	# Test the proposed step from the last selected tile,
+	# not just from the player's current position.
+	var test_transform: Transform2D = global_transform
+	test_transform.origin = start_position
+
+	if test_move(
+		test_transform,
+		direction * tile_size
+	):
+		print("Blocked by a wall or obstacle.")
+		return
 
 	# Prevent immediately reversing the previous step.
 	if (
@@ -214,43 +227,58 @@ func confirm_path() -> void:
 		return
 
 	var selected_path: Array[Vector2] = path.duplicate()
-	var steps_used: int = selected_path.size() - 1
 
 	selecting_path = false
 	moving = true
 
-	# Immediately disable End Turn.
 	GameHandler.update_turn_ui()
-
 	path_line.clear_points()
+
+	var completed_steps: int = 0
+	var blocked: bool = false
 
 	for i in range(1, selected_path.size()):
 		if not can_act():
-			moving = false
-			path.clear()
-			GameHandler.update_turn_ui()
-			return
+			blocked = true
+			break
 
 		var target: Vector2 = selected_path[i]
 
 		while global_position.distance_to(target) > 0.5:
 			if not can_act():
-				moving = false
-				path.clear()
-				GameHandler.update_turn_ui()
-				return
+				blocked = true
+				break
 
-			global_position = global_position.move_toward(
-				target,
-				move_speed * get_process_delta_time()
+			var difference: Vector2 = (
+				target - global_position
 			)
+
+			var distance: float = difference.length()
+			var direction: Vector2 = difference.normalized()
+
+			var motion: Vector2 = direction * minf(
+				move_speed * get_process_delta_time(),
+				distance
+			)
+
+			var collision: KinematicCollision2D = (
+				move_and_collide(motion)
+			)
+
+			if collision != null:
+				blocked = true
+				break
 
 			await get_tree().process_frame
 
+		if blocked:
+			break
+
 		global_position = target
+		completed_steps += 1
 
 	movement_left = maxi(
-		movement_left - steps_used,
+		movement_left - completed_steps,
 		0
 	)
 
@@ -260,7 +288,9 @@ func confirm_path() -> void:
 
 	print("Movement left: ", movement_left)
 
-	# Re-enable End Turn when movement has finished.
+	if blocked:
+		print("Movement stopped by a wall or obstacle.")
+
 	GameHandler.update_turn_ui()
 
 
