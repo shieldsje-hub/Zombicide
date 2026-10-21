@@ -93,10 +93,12 @@ func room_generate():
 			if not tilex == 0.0:
 				walls.append({ "x": tilex, "y": tiley, "stage": 3 })
 				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 3 })
-			walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 1 })
-			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 1 })
-			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 2 })
-			walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 2 })
+			if not tilex == gridsize - 1:
+				walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 1 })
+				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 1 })
+			if not tilex == gridsize - 1:
+				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 2 })
+				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 2 })
 			for i in walls:
 				wallstage = i.stage
 				tilex = i.x
@@ -113,12 +115,22 @@ func room_generate():
 				location = positions.pick_random()
 				tilex = location.x
 				tiley = location.y
-			walls.append({ "x": tilex + tilesize * 2, "y": tiley, "stage": 1 })
-			walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize, "stage": 1 })
-			walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 1 })
-			walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 2 })
-			walls.append({ "x": tilex + tilesize, "y": tiley + tilesize * 2, "stage": 2 })
-			walls.append({ "x": tilex, "y": tiley + tilesize * 2, "stage": 2 })
+			if not tiley == 0.0:
+				walls.append({ "x": tilex, "y": tiley, "stage": 0 })
+				walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 0 })
+				walls.append({ "x": tilex + (tilesize * 2), "y": tiley, "stage": 0 })
+			if not tilex == 0.0:
+				walls.append({ "x": tilex, "y": tiley, "stage": 3 })
+				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 3 })
+				walls.append({ "x": tilex, "y": tiley + (tilesize * 2), "stage": 3 })
+			if not tilex == gridsize - 1.0:
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley, "stage": 1 })
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize, "stage": 1 })
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 1 })
+			if not tiley == gridsize - 1.0:
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 2 })
+				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize * 2, "stage": 2 })
+				walls.append({ "x": tilex, "y": tiley + tilesize * 2, "stage": 2 })
 			
 			for i in walls:
 				wallstage = i.stage
