@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://gdq2yehyvtjb"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frunm"]
+
+[node name="Table" type="StaticBody2D" unique_id=1023376094]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2051654491]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=568532958]
+modulate = Color(0.52912915, 1, 1, 1)
+texture = SubResource("PlaceholderTexture2D_frunm")
