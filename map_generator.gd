@@ -73,7 +73,38 @@ func room_generate():
 	for I in range(roomnumber):
 		roomtype = randi_range(0,1) #change this to generate rooms based on set conditions
 		if roomtype == 0: #2x2
+<<<<<<< HEAD
 			var room_tiles = []
+=======
+			if I == 0:
+				tilex = 0.0
+				tiley = 0.0
+			else:
+				var positions = maparray.filter(
+				func(pos):
+					return pos.x <= (gridsize - 3) * tilesize and pos.y <= (gridsize - 3) * tilesize)
+				location = positions.pick_random()
+				tilex = location.x
+				tiley = location.y
+			if not tiley == 0.0:
+				walls.append({ "x": tilex, "y": tiley, "stage": 0 })
+				walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 0 })
+			if not tilex == 0.0:
+				walls.append({ "x": tilex, "y": tiley, "stage": 3 })
+				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 3 })
+			if not tilex == gridsize - 1:
+				walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 1 })
+				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 1 })
+			if not tilex == gridsize - 1:
+				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize, "stage": 2 })
+				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 2 })
+			for i in walls:
+				wallstage = i.stage
+				tilex = i.x
+				tiley = i.y
+				wall_generate()
+		elif roomtype == 1: #3x3
+>>>>>>> a3be94ea2cec468c84120a8b84766ccd95261f48
 			if I == 0:
 				tilex = 0.0
 				tiley = 0.0
@@ -81,6 +112,7 @@ func room_generate():
 				var positions = maparray.filter(
 				func(pos):
 					return pos.x <= (gridsize - 4) * tilesize and pos.y <= (gridsize - 4) * tilesize)
+<<<<<<< HEAD
 				for a in positions:
 					isthisfree = true
 					for b in occupied_tiles:
@@ -181,6 +213,11 @@ func room_generate():
 			room_tiles += [Vector2(tilex + tilesize * 2, tiley + tilesize * 2)]
 			rooms.append(room_tiles)
 			occupied_tiles += room_tiles
+=======
+				location = positions.pick_random()
+				tilex = location.x
+				tiley = location.y
+>>>>>>> a3be94ea2cec468c84120a8b84766ccd95261f48
 			if not tiley == 0.0:
 				walls.append({ "x": tilex, "y": tiley, "stage": 0 })
 				walls.append({ "x": tilex + tilesize, "y": tiley, "stage": 0 })
@@ -189,6 +226,7 @@ func room_generate():
 				walls.append({ "x": tilex, "y": tiley, "stage": 3 })
 				walls.append({ "x": tilex, "y": tiley + tilesize, "stage": 3 })
 				walls.append({ "x": tilex, "y": tiley + (tilesize * 2), "stage": 3 })
+<<<<<<< HEAD
 			if not tilex + tilesize * 2 == (gridsize * tilesize) - tilesize:
 				walls.append({ "x": tilex + tilesize * 2, "y": tiley, "stage": 1 })
 				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize, "stage": 1 })
@@ -197,6 +235,22 @@ func room_generate():
 				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 2 })
 				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize * 2, "stage": 2 })
 				walls.append({ "x": tilex, "y": tiley + tilesize * 2, "stage": 2 })
+=======
+			if not tilex == gridsize - 1.0:
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley, "stage": 1 })
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize, "stage": 1 })
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 1 })
+			if not tiley == gridsize - 1.0:
+				walls.append({ "x": tilex + tilesize * 2, "y": tiley + tilesize * 2, "stage": 2 })
+				walls.append({ "x": tilex + tilesize, "y": tiley + tilesize * 2, "stage": 2 })
+				walls.append({ "x": tilex, "y": tiley + tilesize * 2, "stage": 2 })
+			
+			for i in walls:
+				wallstage = i.stage
+				tilex = i.x
+				tiley = i.y
+				wall_generate()
+>>>>>>> a3be94ea2cec468c84120a8b84766ccd95261f48
 				
 			realpositions.clear()
 func wall_generate():
