@@ -1,16 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://coxksph1leg58"]
+[gd_scene format=3 uid="uid://coxksph1leg58"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oh6kn"]
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xxgf6"]
 
-[node name="wall" type="StaticBody2D"]
+[node name="wall" type="StaticBody2D" unique_id=97196908]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1937560121]
 shape = SubResource("RectangleShape2D_oh6kn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=914834463]
+self_modulate = Color(0, 1, 0.52508664, 1)
 texture = SubResource("PlaceholderTexture2D_xxgf6")
 region_enabled = true
 region_rect = Rect2(1, 1, 1, 1)

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://gdq2yehyvtjb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alcq6"]
+size = Vector2(1, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_frunm"]
+
+[node name="table" type="StaticBody2D" unique_id=1912315729]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1513665804]
+shape = SubResource("RectangleShape2D_alcq6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1926599637]
+modulate = Color(0.5582763, 1, 1, 1)
+texture = SubResource("PlaceholderTexture2D_frunm")
