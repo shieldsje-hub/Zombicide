@@ -12,7 +12,7 @@ var current_phase: String = "PLAYER"
 var game_started: bool = false
 var changing_turn: bool = false
 
-var player_levels: Dictionary = {}
+var player_xps: Dictionary = {}
 var player_inventories: Dictionary = {}
 
 var turn_panel: PanelContainer
@@ -20,10 +20,13 @@ var turn_label: Label
 var turn_bar: ProgressBar
 var turn_order_label: Label
 var end_turn_button: Button
-
+var zombie_level
 
 func _ready() -> void:
 	create_turn_ui()
+func _process(_delta: float) -> void:
+	zombie_level = get_highest_level()
+
 
 
 # ==========================================
@@ -45,7 +48,7 @@ func register_player(player: Node) -> void:
 
 	var id: int = player.get_instance_id()
 
-	player_levels[id] = 1
+	player_xps[id] = 1
 	player_inventories[id] = []
 
 	if player.has_method("set_turn_active"):
@@ -75,7 +78,7 @@ func unregister_player(player: Node) -> void:
 
 	var id: int = player.get_instance_id()
 
-	player_levels.erase(id)
+	player_xps.erase(id)
 	player_inventories.erase(id)
 
 	if players.is_empty():
@@ -211,18 +214,61 @@ func end_player_turn(player: Node) -> void:
 # PLAYER LEVELS
 # ==========================================
 
-func get_player_level(player: Node) -> int:
+func get_player_xp(player: Node) -> int:
 	return int(
-		player_levels.get(player.get_instance_id(), 1)
+		player_xps.get(player.get_instance_id(), 1)
 	)
 
 
-func set_player_level(player: Node, level: int) -> void:
-	player_levels[player.get_instance_id()] = maxi(
+func set_player_xp(player: Node, xp: int) -> void:
+	player_xps[player.get_instance_id()] = maxi(
 		1,
-		level
+		xp
 	)
 
+
+func increase_player_xp(player: Node) -> void:
+	set_player_xp(player, get_player_xp(player) + 1)
+
+
+func get_player_level(player: Node) -> int:
+	var xp = get_player_xp(player)
+
+	if xp <= 5:
+		return 1
+	elif xp <= 15:
+		return 2
+	elif xp <= 39:
+		return 3
+	else:
+		return 4
+
+
+func get_highest_level() -> int:
+	var highest_level = 1
+
+	for player_id in player_xps:
+		var xp = player_xps[player_id]
+		var level = 1
+
+		if xp > 39:
+			level = 4
+		elif xp >= 16:
+			level = 3
+		elif xp >= 6:
+			level = 2
+
+		highest_level = maxi(highest_level, level)
+
+	return highest_level
+
+func level_up_current_player() -> void:
+	var player = get_current_player()
+
+	if player == null:
+		return
+
+	increase_player_xp(player)
 
 # ==========================================
 # PLAYER INVENTORIES
@@ -330,8 +376,14 @@ func update_turn_ui() -> void:
 	var text: String = "TURN ORDER\n"
 
 	for i in range(players.size()):
+		var player_xp: int = get_player_xp(players[i])
+		var player_level: int = get_player_level(players[i])
+
 		var entry: String = (
-			str(i + 1) + ". " + players[i].name
+			str(i + 1) + ". "
+			+ players[i].name
+			+ " (LVL " + str(player_level) + ")"
+			+ " [" + str(player_xp) + " XP]"
 		)
 
 		if (

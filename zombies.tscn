@@ -1,3 +1,6 @@
-[gd_scene load_steps=0 format=3 uid="uid://soohj34bxmny"]
+[gd_scene format=3 uid="uid://soohj34bxmny"]
+
+[ext_resource type="Script" uid="uid://dwky8sxcg4r0y" path="res://zombies.gd" id="1_l2v4g"]
 
 [node name="Zombies" type="Node2D" unique_id=363708769]
+script = ExtResource("1_l2v4g")

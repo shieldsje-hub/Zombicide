@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://u4j54sldclkc" path="res://player.tscn" id="1_2c62f"]
 [ext_resource type="PackedScene" uid="uid://5sgmlyoa6s1a" path="res://map_generator.tscn" id="2_gyfs4"]
+[ext_resource type="Script" uid="uid://mq78w6qoyi6w" path="res://zombie_manager.gd" id="3_gyfs4"]
 
 [node name="Main scene" type="Node2D" unique_id=1696642652]
 
@@ -24,3 +25,6 @@ position = Vector2(100, 400)
 
 [node name="Player6" parent="." unique_id=552287901 instance=ExtResource("1_2c62f")]
 position = Vector2(600, 400)
+
+[node name="Zombie manager" type="Node2D" parent="." unique_id=236007711]
+script = ExtResource("3_gyfs4")
